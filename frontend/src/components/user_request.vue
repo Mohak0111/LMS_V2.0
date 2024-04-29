@@ -70,7 +70,7 @@ export default {
         async fetchData() {
             const token = localStorage.getItem("jwtToken")
             this.user_name = localStorage.getItem("name")
-            const response = await fetch('http://localhost:8080/backend/user_request', {
+            const response = await fetch('http://192.168.1.9:8080/backend/user_request', {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -87,7 +87,7 @@ export default {
         },
         async handleSubmit() {
             const token = localStorage.getItem("jwtToken")
-            const response = await fetch('http://localhost:8080/backend/user_request', {
+            const response = await fetch('http://192.168.1.9:8080/backend/user_request', {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,

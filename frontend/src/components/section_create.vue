@@ -92,7 +92,7 @@
         try {
           const token = localStorage.getItem('jwtToken');
           console.log(`token: ${token}`);
-          const response = await fetch('http://localhost:8080/backend/section_create', {
+          const response = await fetch('http://192.168.1.9:8080/backend/section_create', {
             method: 'POST',
             headers: {
               'Authorization': `Bearer ${token}`,

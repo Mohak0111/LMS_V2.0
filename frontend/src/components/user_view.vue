@@ -70,7 +70,7 @@ export default {
             try {
                 this.username = localStorage.getItem("name");
                 const token = localStorage.getItem('jwtToken');
-                const response = await fetch('http://localhost:8080/backend/user_view', {
+                const response = await fetch('http://192.168.1.9:8080/backend/user_view', {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${token}`,

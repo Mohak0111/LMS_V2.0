@@ -142,7 +142,7 @@ export default {
         async submitSearch() {
             try {
                 const token = localStorage.getItem('jwtToken');
-                const response = await fetch('http://localhost:8080/backend/user_search', {
+                const response = await fetch('http://192.168.1.9:8080/backend/user_search', {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${token}`,

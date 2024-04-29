@@ -12,7 +12,7 @@ export default {
             try {
                 const token = localStorage.getItem('jwtToken');
                 const bookId = this.$route.params.book_id;
-                const response = await fetch('http://localhost:8080/backend/user_return', {
+                const response = await fetch('http://192.168.1.9:8080/backend/user_return', {
                     method: 'PATCH',
                     headers: {
                         'Authorization': `Bearer ${token}`,

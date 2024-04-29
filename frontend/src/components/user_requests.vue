@@ -74,7 +74,7 @@
         try {
           const token = localStorage.getItem('jwtToken');
           this.username=localStorage.getItem('name');
-          const response = await fetch('http://localhost:8080/backend/user_requests', {
+          const response = await fetch('http://192.168.1.9:8080/backend/user_requests', {
             method: 'GET',
             headers: {
               'Authorization': `Bearer ${token}`,

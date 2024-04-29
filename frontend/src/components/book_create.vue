@@ -103,7 +103,7 @@
         try {
           console.log("Fetching data...");
           const token = localStorage.getItem('jwtToken');
-          const response = await fetch('http://localhost:8080/backend/book_create', {
+          const response = await fetch('http://192.168.1.9:8080/backend/book_create', {
             method: 'GET',
             headers: {
               'Authorization': `Bearer ${token}`,
@@ -129,7 +129,7 @@
       async handleSubmit() {
         try {
           const token = localStorage.getItem('jwtToken');
-          const response = await fetch('http://localhost:8080/backend/book_create', {
+          const response = await fetch('http://192.168.1.9:8080/backend/book_create', {
             method: 'POST',
             headers: {
               'Authorization': `Bearer ${token}`,

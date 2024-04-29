@@ -36,7 +36,7 @@
     methods: {
       async login() {
         try {
-          const response = await fetch('http://localhost:8080/backend/user_login', {
+          const response = await fetch('http://192.168.1.9:8080/backend/user_login', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

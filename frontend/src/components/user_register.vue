@@ -40,7 +40,7 @@ export default {
     methods: {
         async registerUser() {
             try {
-                const response = await fetch('http://localhost:8080/backend/user_register', {
+                const response = await fetch('http://192.168.1.9:8080/backend/user_register', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
