@@ -95,7 +95,7 @@
         try {
           console.log("Fetching data...");
           const token = localStorage.getItem('jwtToken');
-          const response = await fetch('http://192.168.1.9:8080/backend/section_delete', {
+          const response = await fetch('http://localhost:8080/backend/section_delete', {
             method: 'GET',
             headers: {
               'Authorization': `Bearer ${token}`,
@@ -124,7 +124,7 @@
           if (!confirmed) return;
   
           const token = localStorage.getItem('jwtToken');
-          const response = await fetch('http://192.168.1.9:8080/backend/section_delete', {
+          const response = await fetch('http://localhost:8080/backend/section_delete', {
             method: 'POST',
             headers: {
               'Authorization': `Bearer ${token}`,

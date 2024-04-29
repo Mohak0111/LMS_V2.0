@@ -108,7 +108,7 @@
         try {
             const token = localStorage.getItem('jwtToken');
             console.log(`token: ${token}`);
-            const response = await fetch('http://192.168.1.9:8080/backend/libr_dash', {
+            const response = await fetch('http://localhost:8080/backend/libr_dash', {
             method: 'GET', // Adjust the method as needed
             headers: {
               'Authorization': `Bearer ${token}`, // Include JWT token in the headers

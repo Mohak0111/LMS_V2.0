@@ -124,7 +124,7 @@ export default {
             try {
                 console.log("Fetching data...");
                 const token = localStorage.getItem('jwtToken');
-                const response = await fetch('http://192.168.1.9:8080/backend/book_edit', {
+                const response = await fetch('http://localhost:8080/backend/book_edit', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -157,7 +157,7 @@ export default {
                 const token = localStorage.getItem('jwtToken');
                 const formData = this.formDataToJSON(new FormData(document.getElementById(`${bookId}form`)))
                 console.log(formData)
-                const response = await fetch('http://192.168.1.9:8080/backend/book_edit', {
+                const response = await fetch('http://localhost:8080/backend/book_edit', {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${token}`,

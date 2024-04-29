@@ -42,7 +42,7 @@
         // Send a request to your API to authenticate the librarian
         // Replace with your actual API endpoint
         try {
-          const response = await fetch('http://192.168.1.9:8080/backend/libr_login', {
+          const response = await fetch('http://localhost:8080/backend/libr_login', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

@@ -92,7 +92,7 @@
         try {
           console.log("Fetching user data...");
           const token = localStorage.getItem('jwtToken');
-          const response = await fetch('http://192.168.1.9:8080/backend/section_edit', {
+          const response = await fetch('http://localhost:8080/backend/section_edit', {
             method: 'GET',
             headers: {
               'Authorization': `Bearer ${token}`,
@@ -124,7 +124,7 @@
           }
   
           const token = localStorage.getItem('jwtToken');
-          const response = await fetch('http://192.168.1.9:8080/backend/section_edit', {
+          const response = await fetch('http://localhost:8080/backend/section_edit', {
             method: 'POST',
             headers: {
               'Authorization': `Bearer ${token}`,
