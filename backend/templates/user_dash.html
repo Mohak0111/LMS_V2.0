@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+</head>
+<body class="bg-dark" data-bs-theme="dark"> 
+
+
+    <nav class="navbar navbar-dark bg-dark fixed-top shadow">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">Library</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Hi, {{name}}</h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+
+                <li class="nav-item">
+                  <a class="nav-link active" href="/user_dash">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/user_requests">My Requests</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user_books">My Books</a>
+                  </li>
+                <li class="nav-item">
+                    <a class="my-3 btn btn-success" href="/user_search">search</a>
+                  </li>
+              </ul>
+              <a href="/logout" class="btn btn-outline-danger mt-5">Logout</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <div class="mt-5 p-2 container toggle-hidden">
+        <h1 id="heading" class="mt-5">Welcome, {{adminname}}</h1>
+        {%if sections%}
+          {%for section in sections%}
+            {%set books,no_of_books=section.section_books, section.section_books|length%}
+            <div class="container bg-dark mt-4 p-3 rounded-4 shadow border">
+              <h1 class="text-light">{{section.section_title}} <span class="fs-5 text-secondary">{{section.section_description}}</span></h1>
+              {%if no_of_books>=1%}
+                <div id="carouselExampleCaptions{{section.section_title}}" class="carousel carousel-dark slide p-5">
+                  <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleCaptions{{section.section_title}}" data-bs-slide-to="0"
+                      class="active" aria-current="true"></button>
+                    {%for i in range(1,no_of_books)%}
+                      <button type="button" data-bs-target="#carouselExampleCaptions{{section.section_title}}"
+                        data-bs-slide-to="{{i}}"></button>
+                    {%endfor%}
+    
+                  </div>
+    
+    
+    
+                  {% set flag=[] %}
+                  <div class="carousel-inner">
+                    <div class="carousel-item active text-center">
+
+                        <h5 class="text-light">{{books[0].book_name}}</h5>
+                        
+                        <p>Authors:
+                            <span> {{books[0].book_authors}},</span>
+                        </p>
+                        {% if not (books[0].book_issue_flag) %}
+                            {% if user.user_num_requests<5 %}
+                                {% for request in user.user_requests %}
+                                    {% if (request.book_id==books[0].book_id) %}
+                                    {% if flag.append(True) %}{% endif %}
+                                        {% if ((request.request_status=="pending")or(request.request_status=="issued"))  %}
+                                          <button class="btn btn-secondary disabled">Already Requested</button>
+                                        {% else %}
+                                        <a href="{{url_for('user_request', book_id=books[0].book_id)}}" class="btn btn-success">Request</a>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% if not flag %}
+                                  <a href="{{url_for('user_request', book_id=books[0].book_id)}}" class="btn btn-success">Request</a>
+                                  {% set flag=[] %}
+                                {% endif %}
+                            {% else %}
+                                <button class="btn btn-secondary disabled">Max Req Limit Reached</button>
+                            {% endif %}
+                        {% else %}
+                            <button class="btn btn-secondary disabled">Unavailable</button>
+                        {% endif %}
+                    </div>
+                    {% set flag=[] %}
+                    {%for book_iter in range(1,no_of_books)%}
+                      <div class="carousel-item text-center">
+                          <h5 class="text-light">{{books[book_iter].book_name}}</h5>
+                          <p>Authors:
+                              <span> {{books[book_iter].book_authors}},</span>
+                          </p>       
+                          {% if not (books[book_iter].book_issue_flag) %}
+                          {% if user.user_num_requests<5 %}
+                              {% for request in user.user_requests%}
+                                  {% if (request.book_id==books[book_iter].book_id) %}
+                                  {% if flag.append(True) %}{% endif %}
+                                      {% if ((request.request_status=="pending")or(request.request_status=="issued"))  %}
+                                        <button class="btn btn-secondary disabled">Already Requested</button>
+                                      {% else %}
+                                      <a href="{{url_for('user_request', book_id=books[book_iter].book_id)}}" class="btn btn-success">Request</a>
+                                      {% endif %}
+                                      {% endif %}
+                                      {% endfor %}
+                                      {% if not flag %}
+                                      {% set flag=[] %}
+                                      <a href="{{url_for('user_request', book_id=books[book_iter].book_id)}}" class="btn btn-success">Request</a>
+                              {% endif %}
+                          {% else %}
+                              <button class="btn btn-secondary disabled">Max Req Limit Reached</button>
+                          {% endif %}
+                      {% else %}
+                          <button class="btn btn-secondary disabled">Unavailable</button>
+                      {% endif %}
+                  </div>
+                    {%endfor%}
+                  </div>
+    
+    
+    
+    
+    
+    
+    
+    
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions{{section.section_title}}"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions{{section.section_title}}"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
+                </div>
+              {%else%}
+                <p class="container bg-dark text-center p-3">No books exist</p>
+              {%endif%}
+            </div>
+          {%endfor%}
+        {%else%}
+          <p class="text-secondary">no sections created!</p>
+        {%endif%}
+      </div>
+      
+   
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+</body>
+</html>

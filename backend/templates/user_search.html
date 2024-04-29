@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+</head>
+
+<body class="bg-dark" data-bs-theme="dark">
+
+    <nav class="navbar navbar-dark bg-dark fixed-top shadow">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Library</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
+                aria-labelledby="offcanvasDarkNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Hi, {{name}}</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/user_dash">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/user_requests">My Requests</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/user_books">My Books</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="my-3 btn btn-success" href="/user_search">search</a>
+                        </li>
+                    </ul>
+                    <a href="/logout" class="btn btn-outline-danger mt-5">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="mt-5 p-2 container toggle-hidden">
+        <h1 id="heading" class="mt-5">Search</h1>
+        <form class="shadow-lg p-3 border rounded" method="post">
+            <h1>Select the parameter to search on</h1>
+          <div class="m-3">
+            <label for="book_name" class="form-label">Book Name</label>
+            <input type="radio" class="form-check" id="book_name" name="parameter" value="book_name">
+          </div>
+          <div class="m-3">
+            <label for="book_authors" class="form-label">Book Authors</label>
+            <input type="radio" class="form-check" id="book_authors" name="parameter" value="book_authors">
+          </div>
+          <div class="m-3">
+            <label for="book_availability" class="form-label">Book Availability</label>
+            <input type="radio" class="form-check" id="book_availability" name="parameter" value="book_availability">
+          </div>
+          <div class="m-3">
+            <label for="section_title" class="form-label">Section Title</label>
+            <input type="radio" class="form-check" id="section_title" name="parameter" value="section_title">
+          </div>
+          <div class="m-3">
+            <label for="section_description" class="form-label">Section Description</label>
+            <input type="radio" class="form-check" id="section_description" name="parameter" value="section_description">
+          </div>
+          <div class="m-3">
+            <label for="search_string" class="form-label">Enter The search string:</label>
+            <input type="text" class="form-control" id="search_string" name="search_string">
+          </div>
+
+
+          <button type="submit" class="m-3 btn btn-primary">Submit</button>
+        </form>
+      </div>
+      <h1 id="heading" class="mt-2 p-2 container">Results</h1>
+
+      <div id="section_display">
+      {% if results %}
+      {%if content=="section"%}
+      {%for section in results%}
+        {%set books,no_of_books=section.section_books, section.section_books|length%}
+        <div class="container bg-dark mt-4 p-3 rounded-4 shadow border">
+          <h1 class="text-light">{{section.section_title}} <span class="fs-5 text-secondary">{{section.section_description}}</span></h1>
+          {%if no_of_books>=1%}
+            <div id="carouselExampleCaptions{{section.section_title}}" class="carousel carousel-dark slide p-5">
+              <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleCaptions{{section.section_title}}" data-bs-slide-to="0"
+                  class="active" aria-current="true"></button>
+                {%for i in range(1,no_of_books)%}
+                  <button type="button" data-bs-target="#carouselExampleCaptions{{section.section_title}}"
+                    data-bs-slide-to="{{i}}"></button>
+                {%endfor%}
+
+              </div>
+
+
+
+
+              <div class="carousel-inner">
+                <div class="carousel-item active text-center">
+
+                    <h5 class="text-light">{{books[0].book_name}}</h5>
+                    
+                    <p>Authors:
+                        <span> {{books[0].book_authors}},</span>
+                    </p>
+                </div>
+
+                {%for book_iter in range(1,no_of_books)%}
+                  <div class="carousel-item text-center">
+                      <h5 class="text-light">{{books[book_iter].book_name}}</h5>
+                      <p>Authors:
+                          <span> {{books[book_iter].book_authors}},</span>
+                      </p>                        
+                  </div>
+                {%endfor%}
+              </div>
+
+
+
+
+
+
+
+
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions{{section.section_title}}"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions{{section.section_title}}"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+          {%else%}
+            <p class="container bg-dark text-center p-3">No books exist</p>
+          {%endif%}
+        </div>
+      {%endfor%}
+    {%endif%}
+    {%endif%}    
+      </div>  
+      <div id="book_display">
+        {% if results %}
+            {% if content=="book" %}
+            <div class="mt-5 p-2 container toggle-hidden">
+                {% for book in results %}
+                <div class="shadow-lg p-3 m-3 rounded-3 border" id="{{book.book_id}}div">
+                    <h1>{{book.book_name}} </h1>
+                    <h1 class="fs-2 text-secondary">{{book.book_authors}}</h1>
+                    <h1>{{book.section_title}}</h1>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        {% endif %}
+      </div>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+
+</body>
+
+</html>
