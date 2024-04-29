@@ -141,7 +141,7 @@
         try {
           const token = localStorage.getItem('jwtToken');
           console.log(`token: ${token}`);
-          const response = await fetch('http://192.168.1.9:8080/backend/requests', {
+          const response = await fetch('http://localhost:8080/backend/requests', {
             method: 'GET',
             headers: {
               'Authorization': `Bearer ${token}`,
@@ -167,7 +167,7 @@
         try {
           const token = localStorage.getItem('jwtToken');
           console.log(`token: ${token}`);
-          const response = await fetch('http://192.168.1.9:8080/backend/grant', {
+          const response = await fetch('http://localhost:8080/backend/grant', {
             method: 'PATCH',
             headers: {
               'Authorization': `Bearer ${token}`,
@@ -195,7 +195,7 @@
         try {
           const token = localStorage.getItem('jwtToken');
           console.log(`token: ${token}`);
-          const response = await fetch('http://192.168.1.9:8080/backend/reject', {
+          const response = await fetch('http://localhost:8080/backend/reject', {
             method: 'PATCH',
             headers: {
               'Authorization': `Bearer ${token}`,
@@ -222,7 +222,7 @@
         try {
           const token = localStorage.getItem('jwtToken');
           console.log(`token: ${token}`);
-          const response = await fetch('http://192.168.1.9:8080/backend/revoke', {
+          const response = await fetch('http://localhost:8080/backend/revoke', {
             method: 'PATCH',
             headers: {
               'Authorization': `Bearer ${token}`,

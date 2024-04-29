@@ -112,7 +112,7 @@ export default {
         this.name = localStorage.getItem("name")
         console.log("Fetching data...");
         const token = localStorage.getItem('jwtToken');
-        const response = await fetch('http://192.168.1.9:8080/backend/admin_summary', {
+        const response = await fetch('http://localhost:8080/backend/admin_summary', {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -138,7 +138,7 @@ export default {
         this.name = localStorage.getItem("name")
         console.log("Fetching data...");
         const token = localStorage.getItem('jwtToken');
-        const response = await fetch('http://192.168.1.9:8080/backend/graph', {
+        const response = await fetch('http://localhost:8080/backend/graph', {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
